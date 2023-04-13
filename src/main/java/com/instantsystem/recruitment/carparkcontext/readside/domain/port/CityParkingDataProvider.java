@@ -1,14 +1,12 @@
 package com.instantsystem.recruitment.carparkcontext.readside.domain.port;
 
-import com.instantsystem.recruitment.carparkcontext.readside.domain.model.CarParkCapacity;
-import com.instantsystem.recruitment.carparkcontext.readside.domain.model.CarParkInformation;
+import com.instantsystem.recruitment.carparkcontext.readside.domain.model.CarPark;
+import com.instantsystem.recruitment.carparkcontext.readside.domain.model.Coordinates;
 
 import java.util.Set;
 
 public interface CityParkingDataProvider {
 
-    Set<CarParkInformation> getParks();
-
-    CarParkCapacity getCapacity(CarParkInformation carPark);
+    Set<CarPark> getCarParks(Coordinates userCoordinates, int radius);
 
 }

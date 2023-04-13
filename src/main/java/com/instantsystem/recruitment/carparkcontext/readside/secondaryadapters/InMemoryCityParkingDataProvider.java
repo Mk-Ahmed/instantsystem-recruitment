@@ -1,26 +1,19 @@
 package com.instantsystem.recruitment.carparkcontext.readside.secondaryadapters;
 
-import com.instantsystem.recruitment.carparkcontext.readside.domain.model.CarParkCapacity;
-import com.instantsystem.recruitment.carparkcontext.readside.domain.model.CarParkInformation;
+import com.instantsystem.recruitment.carparkcontext.readside.domain.model.CarPark;
+import com.instantsystem.recruitment.carparkcontext.readside.domain.model.Coordinates;
 import com.instantsystem.recruitment.carparkcontext.readside.domain.port.CityParkingDataProvider;
 import lombok.AllArgsConstructor;
 
-import java.util.Map;
 import java.util.Set;
 
 @AllArgsConstructor
 public class InMemoryCityParkingDataProvider implements CityParkingDataProvider {
 
-    private final Map<CarParkInformation, CarParkCapacity> data;
+    private final Set<CarPark> data;
 
     @Override
-    public Set<CarParkInformation> getParks() {
-        return data.keySet();
+    public Set<CarPark> getCarParks(Coordinates userCoordinates, int radius) {
+        return data;
     }
-
-    @Override
-    public CarParkCapacity getCapacity(CarParkInformation carPark) {
-        return data.get(carPark);
-    }
-
 }

@@ -4,6 +4,6 @@ import lombok.Builder;
 
 @Builder
 public record CarPark(String name, int distance,
-                      CarParkCapacity capacity, Coordinates coordinates) {
+                      Coordinates coordinates, Capacity capacity) {
 
 }

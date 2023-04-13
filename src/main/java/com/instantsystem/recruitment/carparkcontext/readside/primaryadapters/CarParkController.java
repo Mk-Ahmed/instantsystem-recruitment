@@ -1,8 +1,8 @@
 package com.instantsystem.recruitment.carparkcontext.readside.primaryadapters;
 
 import com.instantsystem.recruitment.carparkcontext.readside.domain.model.Coordinates;
-import com.instantsystem.recruitment.carparkcontext.readside.domain.model.NearbyCarParksVm;
 import com.instantsystem.recruitment.carparkcontext.readside.domain.usecase.RetrieveNearbyCarParksHandler;
+import com.instantsystem.recruitment.carparkcontext.readside.domain.usecase.RetrieveNearbyCarParksHandler.NearbyCarParksVm;
 import com.instantsystem.recruitment.carparkcontext.readside.domain.usecase.RetrieveNearbyCarParksHandler.RetrieveNearbyCarParksQuery;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
