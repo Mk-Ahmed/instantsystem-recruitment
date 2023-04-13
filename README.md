@@ -1,7 +1,7 @@
 ## Past time
 
 - one hour for setup a hello word using spring boot included all dependencies .
-- two hours studying the doc of https://data.grandpoitiers.fr/api/v2/console
+- one hour studying the doc of https://data.grandpoitiers.fr/api/v2/console
 
 ## Workspace prerequisites
 
