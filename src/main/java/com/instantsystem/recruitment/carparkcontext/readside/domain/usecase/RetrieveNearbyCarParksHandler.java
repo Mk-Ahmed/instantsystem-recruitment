@@ -21,5 +21,4 @@ public class RetrieveNearbyCarParksHandler {
     public record RetrieveNearbyCarParksQuery(String city) {
 
     }
-
 }
