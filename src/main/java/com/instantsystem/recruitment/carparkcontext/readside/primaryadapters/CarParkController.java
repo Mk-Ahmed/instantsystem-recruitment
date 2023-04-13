@@ -1,5 +1,6 @@
 package com.instantsystem.recruitment.carparkcontext.readside.primaryadapters;
 
+import com.instantsystem.recruitment.carparkcontext.readside.domain.model.Coordinates;
 import com.instantsystem.recruitment.carparkcontext.readside.domain.model.NearbyCarParksVm;
 import com.instantsystem.recruitment.carparkcontext.readside.domain.usecase.RetrieveNearbyCarParksHandler;
 import com.instantsystem.recruitment.carparkcontext.readside.domain.usecase.RetrieveNearbyCarParksHandler.RetrieveNearbyCarParksQuery;
@@ -26,8 +27,15 @@ public class CarParkController {
                     schema = @Schema(implementation = NearbyCarParksVm.class)))
     @ApiResponse(responseCode = "404", description = "City not handled",
             content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE))
-    public Object get(@RequestParam String city) {
-        final var query = new RetrieveNearbyCarParksQuery(city);
+    public Object get(@RequestParam String city, @RequestParam String userLatitude,
+                      @RequestParam String userLongitude,
+                      @RequestParam String radius) {
+        final var query = RetrieveNearbyCarParksQuery.builder()
+                .city(city)
+                .userCoordinates(new Coordinates(Double.parseDouble(userLatitude), Double.parseDouble(userLongitude)))
+                .radius(Integer.parseInt(radius))
+                .build();
         return retrieveNearbyCarParksHandler.execute(query);
     }
+
 }

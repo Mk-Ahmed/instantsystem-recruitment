@@ -1,8 +1,4 @@
 package com.instantsystem.recruitment.carparkcontext.readside.domain.model;
 
-import java.util.Set;
-
-public record NearbyCarParksVm(Set<CarPark> parks) {
-
-
+public record Coordinates(double latitude, double longitude) {
 }
