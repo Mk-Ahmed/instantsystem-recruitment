@@ -4,9 +4,8 @@ import com.instantsystem.recruitment.carparkcontext.readside.domain.model.Capaci
 import com.instantsystem.recruitment.carparkcontext.readside.domain.model.CarPark;
 import com.instantsystem.recruitment.carparkcontext.readside.domain.model.CityNotHandledException;
 import com.instantsystem.recruitment.carparkcontext.readside.domain.model.Coordinates;
-import com.instantsystem.recruitment.carparkcontext.readside.domain.usecase.RetrieveNearbyCarParksHandler.NearbyCarParksVm;
 import com.instantsystem.recruitment.carparkcontext.readside.domain.usecase.RetrieveNearbyCarParksHandler.RetrieveNearbyCarParksQuery;
-import com.instantsystem.recruitment.carparkcontext.readside.secondaryadapters.InMemoryCityParkingDataProvider;
+import com.instantsystem.recruitment.carparkcontext.readside.secondaryadapters.StubParkingDataProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -25,13 +24,13 @@ class RetrieveNearbyCarParksHandlerTest {
     void setup() {
         handler = new RetrieveNearbyCarParksHandler(
                 Map.of(
-                        "Paris", new InMemoryCityParkingDataProvider(
+                        "Paris", new StubParkingDataProvider(
                                 Set.of(
                                         new CarPark("Opera", 10, new Coordinates(1, 1), new Capacity(10, 4)),
                                         new CarPark("Chatelet", 14, new Coordinates(2, 2), new Capacity(20, 12))
                                 )),
 
-                        "Nice", new InMemoryCityParkingDataProvider(
+                        "Nice", new StubParkingDataProvider(
                                 Set.of(
                                         new CarPark("Promenade", 10, new Coordinates(3, 3), new Capacity(17, 6)),
                                         new CarPark("Chatelet", 14, new Coordinates(4, 4), new Capacity(30, 17))
@@ -59,9 +58,9 @@ class RetrieveNearbyCarParksHandlerTest {
 
         final var actual = handler.execute(query);
 
-        assertThat(actual).isEqualTo(new NearbyCarParksVm(Set.of(
+        assertThat(actual).isEqualTo(Set.of(
                 new CarPark("Opera", 10, new Coordinates(1, 1), new Capacity(10, 4)),
                 new CarPark("Chatelet", 14, new Coordinates(2, 2), new Capacity(20, 12))
-        )));
+        ));
     }
 }

@@ -7,6 +7,6 @@ import java.util.Set;
 
 public interface CityParkingDataProvider {
 
-    Set<CarPark> getCarParks(Coordinates userCoordinates, int radius);
+    Set<CarPark> getCarParks(Coordinates userCoordinates, double radius);
 
 }

@@ -8,12 +8,12 @@ import lombok.AllArgsConstructor;
 import java.util.Set;
 
 @AllArgsConstructor
-public class InMemoryCityParkingDataProvider implements CityParkingDataProvider {
+public class StubParkingDataProvider implements CityParkingDataProvider {
 
     private final Set<CarPark> data;
 
     @Override
-    public Set<CarPark> getCarParks(Coordinates userCoordinates, int radius) {
+    public Set<CarPark> getCarParks(Coordinates userCoordinates, double radius) {
         return data;
     }
 }

@@ -15,20 +15,15 @@ public class RetrieveNearbyCarParksHandler {
 
     private final Map<String, CityParkingDataProvider> cities;
 
-    public NearbyCarParksVm execute(RetrieveNearbyCarParksQuery query) {
+    public Set<CarPark> execute(RetrieveNearbyCarParksQuery query) {
         final CityParkingDataProvider cityParkingDataProvider = cities.get(query.city());
         if (cityParkingDataProvider == null) throw new CityNotHandledException();
-        final var carParks = cityParkingDataProvider.getCarParks(query.userCoordinates(), query.radius());
-        return new NearbyCarParksVm(carParks);
+        return cityParkingDataProvider.getCarParks(query.userCoordinates(), query.radius());
     }
 
     @Builder
-    public record RetrieveNearbyCarParksQuery(String city, Coordinates userCoordinates, int radius) {
+    public record RetrieveNearbyCarParksQuery(String city, Coordinates userCoordinates, double radius) {
 
     }
 
-    public record NearbyCarParksVm(Set<CarPark> parks) {
-
-
-    }
 }

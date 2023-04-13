@@ -5,7 +5,7 @@ import com.instantsystem.recruitment.carparkcontext.readside.domain.model.Coordi
 public class DistanceProvider {
 
     // thanks to https://dzone.com/articles/distance-calculation-using-3 :)
-    static double computeDistance(Coordinates first, Coordinates second) {
+    static double computeDistanceInKm(Coordinates first, Coordinates second) {
         final double theta = first.longitude() - second.longitude();
         double dist = Math.sin(deg2rad(first.latitude()))
                 * Math.sin(deg2rad(second.latitude()))

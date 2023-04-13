@@ -2,7 +2,7 @@
   "nhits": 26,
   "parameters": {
     "dataset": "mobilite-parkings-grand-poitiers-donnees-metiers",
-    "rows": 1000,
+    "rows": 100,
     "start": 0,
     "facet": [
       "nom_du_parking",
