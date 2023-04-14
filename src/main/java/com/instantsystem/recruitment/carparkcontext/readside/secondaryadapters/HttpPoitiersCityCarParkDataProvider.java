@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.instantsystem.recruitment.carparkcontext.readside.domain.model.Capacity;
 import com.instantsystem.recruitment.carparkcontext.readside.domain.model.CarPark;
 import com.instantsystem.recruitment.carparkcontext.readside.domain.model.Coordinates;
-import com.instantsystem.recruitment.carparkcontext.readside.domain.port.CityParkingDataProvider;
+import com.instantsystem.recruitment.carparkcontext.readside.domain.port.CityCarParkDataProvider;
 
 import java.io.IOException;
 import java.net.URI;
@@ -20,18 +20,17 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import static com.instantsystem.recruitment.carparkcontext.readside.secondaryadapters.DistanceProvider.computeDistanceInKm;
+public final class HttpPoitiersCityCarParkDataProvider implements CityCarParkDataProvider {
 
-public final class HttpPoitiersCityParkingDataProvider implements CityParkingDataProvider {
     private static final String CAR_PARKS_CAPACITY_API_URL = "https://data.grandpoitiers.fr/api/records/1.0/search/?dataset=mobilites-stationnement-des-parkings-en-temps-reel&facet=nom";
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
     private static final HttpClient HTTP_CLIENT = HttpClient.newBuilder().build();
 
     @Override
-    public Set<CarPark> getCarParks(Coordinates userCoordinates, double radius) {
+    public Set<CarPark> getParParksAround(Coordinates userCoordinates, double radius) {
         return httpGet(CAR_PARKS_CAPACITY_API_URL, CarParkCapacityApiResult[].class)
                 .stream()
-                .map(data -> data.fields)
+                .map(CarParkCapacityApiResult::fields)
                 .filter(data -> data.geo_point_2d != null)
                 .map(buildCarPark(userCoordinates))
                 .filter(isInRadius(radius))
@@ -43,11 +42,14 @@ public final class HttpPoitiersCityParkingDataProvider implements CityParkingDat
     }
 
     private static Function<CarParkCapacityApiResult.Fields, CarPark> buildCarPark(Coordinates userCoordinates) {
-        return carPark -> {
-            final var carParkCoordinates = new Coordinates(carPark.geo_point_2d[0], carPark.geo_point_2d[1]);
-            final var distance = computeDistanceInKm(userCoordinates, carParkCoordinates);
-            final var capacity = new Capacity(carPark.capacite, carPark.places);
-            return new CarPark(carPark.nom, distance, carParkCoordinates, capacity);
+        return record -> {
+            final var carParkCoordinates = new Coordinates(record.geo_point_2d[0], record.geo_point_2d[1]);
+            return CarPark.builder()
+                    .name(record.nom)
+                    .distance(userCoordinates.computeDistanceInMetre(carParkCoordinates))
+                    .coordinates(carParkCoordinates)
+                    .capacity(new Capacity(record.capacite, record.places))
+                    .build();
         };
     }
 

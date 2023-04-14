@@ -5,7 +5,7 @@ import com.instantsystem.recruitment.carparkcontext.readside.domain.model.CarPar
 import com.instantsystem.recruitment.carparkcontext.readside.domain.model.CityNotHandledException;
 import com.instantsystem.recruitment.carparkcontext.readside.domain.model.Coordinates;
 import com.instantsystem.recruitment.carparkcontext.readside.domain.usecase.RetrieveNearbyCarParksHandler.RetrieveNearbyCarParksQuery;
-import com.instantsystem.recruitment.carparkcontext.readside.secondaryadapters.StubParkingDataProvider;
+import com.instantsystem.recruitment.carparkcontext.readside.secondaryadapters.StubCarParkDataProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -24,13 +24,13 @@ class RetrieveNearbyCarParksHandlerTest {
     void setup() {
         handler = new RetrieveNearbyCarParksHandler(
                 Map.of(
-                        "Paris", new StubParkingDataProvider(
+                        "Paris", new StubCarParkDataProvider(
                                 Set.of(
                                         new CarPark("Opera", 10, new Coordinates(1, 1), new Capacity(10, 4)),
                                         new CarPark("Chatelet", 14, new Coordinates(2, 2), new Capacity(20, 12))
                                 )),
 
-                        "Nice", new StubParkingDataProvider(
+                        "Nice", new StubCarParkDataProvider(
                                 Set.of(
                                         new CarPark("Promenade", 10, new Coordinates(3, 3), new Capacity(17, 6)),
                                         new CarPark("Chatelet", 14, new Coordinates(4, 4), new Capacity(30, 17))
