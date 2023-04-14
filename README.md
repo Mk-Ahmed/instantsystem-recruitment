@@ -11,8 +11,6 @@
 ## Usage
 
 - Swagger url: http://localhost:8080/swagger-ui.html
-- Exemple of query: 
-  - http://localhost:8080/carpark?city=Paris
 
 ## Included dependencies
 

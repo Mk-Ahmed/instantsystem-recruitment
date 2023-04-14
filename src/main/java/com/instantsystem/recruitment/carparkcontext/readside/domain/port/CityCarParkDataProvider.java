@@ -5,8 +5,8 @@ import com.instantsystem.recruitment.carparkcontext.readside.domain.model.Coordi
 
 import java.util.Set;
 
-public interface CityParkingDataProvider {
+public interface CityCarParkDataProvider {
 
-    Set<CarPark> getCarParks(Coordinates userCoordinates, double radius);
+    Set<CarPark> getParParksAround(Coordinates userCoordinates, double radius);
 
 }
